@@ -1,15 +1,9 @@
 import React from 'react';
-import { BASE_API_URL} from '../Constants/Constants';
 
 const UpvoteSection = ({name, upVotes, setArticleInfo}) => {
 
-    const UpVoteArticles = async () =>{
-      const result =  await fetch(`${BASE_API_URL}/api/articles/${name}/upvote`);
-
-      const body = await result.json();
-
-      setArticleInfo(body);
-
+    const UpVoteArticles = async () =>{ 
+      setArticleInfo({articleName:name }); 
     } 
 
     return(

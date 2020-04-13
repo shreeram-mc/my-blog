@@ -1,13 +1,40 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
+
 import ArticlesList from '../Components/ArticlesList';
-import articleContent from './article-content';
+// import articleContent from './article-content';
+import { getData } from "../actions/index";
 
-const ArticlesListPage = ({match}) =>  (
-    <>
-        <h1>Articles List</h1>
-        <ArticlesList articles={articleContent} num={80} ></ArticlesList>
-       
-    </>
-)
+ 
+class ArticlesListPage extends Component {
 
-export default ArticlesListPage;
+    componentDidMount() {
+        // calling the new action creator
+        this.props.getData();
+      }
+
+    render() { 
+
+        return (
+            <>
+            <h1>Articles List</h1>
+            <Link title="Add New" to="/article/add" >Add New</Link>
+            <ArticlesList articles={this.props.articleContent} num={80} ></ArticlesList>
+           
+        </>
+        )
+    } 
+}
+
+function mapStateToProps(state) {
+    return {
+        articleContent: state.remoteArticles
+    };
+  }
+export default connect(
+    mapStateToProps,
+    { getData }
+  )(ArticlesListPage);
+
+ 
